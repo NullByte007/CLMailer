@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://i.ibb.co/bW0FnQD/CLM-logo.png" width="300px" height="300px">
+</p>
+
 # CLMailer
 A Command line tool for sending Email directly from Terminal.
 
