@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://i.ibb.co/bW0FnQD/CLM-logo.png" width="500px" height="300px">
+<img src="https://i.ibb.co/qySCw7V/CLM-logo.png" width="500px" height="300px">
 </p>
 
 # CLMailer
