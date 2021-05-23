@@ -281,7 +281,7 @@ def helper():
         print(f)
     except:
         print("[!!] ERROR ACCESSING THE HELPER.TXT FILE.")
-        print("[*] KINDLY RUN THIS COMMAND TO GET THE FILE : ")
+        print("[*] KINDLY RUN THIS COMMAND TO GET THE FILE :\n wget https://raw.githubusercontent.com/NullByte007/CLMailer/main/helper.txt ")
     
     input("< PRESS ENTER AFTER READING >")
     main()
