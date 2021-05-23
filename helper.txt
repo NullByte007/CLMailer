@@ -1,0 +1,55 @@
+|==================================================================================|
+|                                    HELPER                                        |
+|==================================================================================|
+|1> ONE MAIL                                                                       |
+|=> This options is to be used when you want to send a mail to "ONLY ONE"          |
+|   recipient.                                                                     |
+|=> Although you can attach multiple attachments as per your need.                 |
+|==================================================================================|
+|==================================================================================|
+|2> MULTI MAIL                                                                     |
+|=> This option is used when you want to send mail to multiple recipients that     |
+|   exceed the amount to be typed / pasted by the user in this tool.Lets say 100   |
+|   recipients. Hence, user can just save this recipients in a file and give this  |
+|   file as input to the tool and add attachments which will be common to all      |
+|   recipients.                                                                    |
+|==================================================================================|
+|==================================================================================|
+|3> BULK MAIL                                                                      |
+|=> This option is used when user needs unique subject,body,attachment for all     |
+|   individual recipients. For Eg: you wish to mail result marksheets to each      |
+|   student and hence cannot attach all the pdf files in one mail and it would     |
+|   breach privacy of students as all the files will be visible to everyone.       |
+|   so you need to mail like : [ student 1 | Subject 1 | Body 1 | Attachment 1 ]   | 
+|   hence you can use this option. Remember ! the sequence of attachments in files |
+|   attachments will also be followed in mail.                                     |
+|                                                                                  |
+|   For eg :                                                                       |                      
+|   subject.txt has =>                                                             |
+|	subject 1                                                                  |
+|	subject 2                                                                  |
+|	subject 3                                                                  |
+|                                                                                  |
+|   body.txt has =>                                                                |
+|	body 1                                                                     |
+|	body 2                                                                     |
+| 	body 3                                                                     |
+|                                                                                  |
+|   recipient.txt =>                                                               |
+|	recipient 1                                                                |
+|	recipient 2                                                                |
+|	recipient 3                                                                |
+|                                                                                  |
+|   attachment folder =>                                                           |
+|	attachment_1.pdf                                                           |
+|	attachment_2.pdf                                                           |
+|	attachment_3.pdf                                                           |
+|                                                                                  |
+|                                                                                  |
+| This will be mailing sequence =>                                                 |
+| recipient 1 | subject 1 | body 1 | Attachment 1  => Mail sent  ! .......         |
+| recipient 2 | subject 2 | body 2 | Attachment 2  => Mail sent  ! .......         |
+| recipient 3 | subject 3 | body 3 | Attachment 3  => Mail sent  ! .......         |
+|==================================================================================|
+|==================================================================================|
+
