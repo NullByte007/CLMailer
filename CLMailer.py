@@ -13,6 +13,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import re
 
 def show_banner():
 
@@ -87,8 +88,10 @@ def ONE_mail(email,password):
     message['Subject'] = subject
     message.attach(MIMEText(body,'plain'))
     
+    attachment_count = 0
+
     # METHOD TO ATTACH THE FILES 
-    def file_Attacher(number):
+    def singular_file_Attacher(number):
         print("\n \033[30;42;5m ATTACHMENT NO ==> ({}) \033[m ".format(number))
         filename = input("[*] ENTER FILENAME / PATH / DRAG THE FILE HERE ! ")
         f = open(filename,'rb') #opening file as read bytes !
@@ -98,12 +101,51 @@ def ONE_mail(email,password):
         attachment.add_header('Content-Disposition',"attachment; filename=" + filename.split("/")[-1])
         message.attach(attachment)
 
+    
+    def bulk_file_Attacher(filename):
+        f = open(filename,'rb') #opening file as read bytes !
+        attachment = MIMEBase('application','octet-stream')
+        attachment.set_payload((f).read())
+        encoders.encode_base64(attachment)
+        attachment.add_header('Content-Disposition',"attachment; filename=" + filename.split("/")[-1])
+        message.attach(attachment)   
+    
 
-    choice = input("[!] YOU WISH TO ADD ATTACHMENT ? <YES / NO> : " ).lower()
-    if choice=='yes' or choice=='y':
-        no_of_attachments = int(input("[*] ENTER NO OF ATTACHMENTS YOU WISH TO ATTACH : "))
-        for x in range(no_of_attachments):
-            file_Attacher(x)
+    choice_1 = input("[!] YOU WISH TO ADD ATTACHMENT ? <YES / NO> : " ).lower()
+    
+    # If choice to add attachment is YES !!!
+    if choice_1=='yes' or choice_1=='y':
+        choice_2 = input("[!] DO YOU WANT 'SINGULAR ATTACHMENTS' (S)  OR 'BULK ATTACHMENT' (B)  : ").lower()    
+        
+        # If choice to add singular attachments is YES !!
+        if choice_2=='s':
+            no_of_attachments = int(input("[*] ENTER NO OF ATTACHMENTS YOU WISH TO ATTACH : "))
+            for x in range(no_of_attachments):
+                singular_file_Attacher(x)
+        
+        # If choice to add BULK attachments is Yes !!
+        elif choice_2=='b':
+            attachment_folder_name = input("[*] ENTER ATTACHMENT FOLDER / DRAG FILE HERE :")
+            if attachment_folder_name[-1]=="/":
+                attachment_folder_name = attachment_folder_name[:-1]
+
+            os.system("mkdir TEMP 1> /dev/null 2> /dev/null")
+            os.system("ls " + attachment_folder_name + "> TEMP/index.txt")
+            os.system("wc -l TEMP/index.txt | cut -d' ' -f1 > TEMP/attachment_count.txt")
+        
+
+            attachments = open("TEMP/index.txt","r")
+            attachments  = attachments.read().split("\n")
+            attachments.pop()
+
+            attachment_count = open("TEMP/attachment_count.txt","r")
+            attachment_count = attachment_count.read().split("\n")[0]
+            print("\n")
+            for x in range(int(len(attachments))):
+                print("\033[30;42m [OK] [{}] ATTACHING ==> {} \033[m".format(x,attachments[x]))
+                bulk_file_Attacher(str(attachment_folder_name) + "/" + str(attachments[x]))
+     
+    # If choice to add attachments is NO !!         
     else:
         pass
     
@@ -113,7 +155,7 @@ def ONE_mail(email,password):
 
     # FUNCTION CALL
     send_mail(email,password,text,receiver)
-    input("[OK] MAIL SENT !.......... <PRESS ENTER>")
+    input("\n\033[30;42;5m [OK] MAIL SENT !.......... <PRESS ENTER> \033[m")
     main()
 # =============================================================================================
 
@@ -137,7 +179,7 @@ def MULTI_mail(email,password):
     message.attach(MIMEText(body,'plain'))
     
     # METHOD TO ATTACH THE FILES 
-    def file_Attacher(number):
+    def singular_file_Attacher(number):
         print("\n \033[30;42;5m ATTACHMENT NO ==> ({}) \033[m ".format(number))
         filename = input("[*] ENTER FILENAME / PATH / DRAG THE FILE HERE ! ")
         f = open(filename,'rb') #opening file as read bytes !
@@ -147,12 +189,51 @@ def MULTI_mail(email,password):
         attachment.add_header('Content-Disposition',"attachment; filename=" + filename.split("/")[-1])
         message.attach(attachment)
 
+    
+    def bulk_file_Attacher(filename):
+        f = open(filename,'rb') #opening file as read bytes !
+        attachment = MIMEBase('application','octet-stream')
+        attachment.set_payload((f).read())
+        encoders.encode_base64(attachment)
+        attachment.add_header('Content-Disposition',"attachment; filename=" + filename.split("/")[-1])
+        message.attach(attachment)   
+    
 
-    choice = input("[!] YOU WISH TO ADD ATTACHMENT ? <YES / NO> : " ).lower()
-    if choice=='yes' or choice=='y':
-        no_of_attachments = int(input("[*] ENTER NO OF ATTACHMENTS YOU WISH TO ATTACH : "))
-        for x in range(no_of_attachments):
-            file_Attacher(x)
+    choice_1 = input("[!] YOU WISH TO ADD ATTACHMENT ? <YES / NO> : " ).lower()
+    
+    # If choice to add attachment is YES !!!
+    if choice_1=='yes' or choice_1=='y':
+        choice_2 = input("[!] DO YOU WANT 'SINGULAR ATTACHMENTS' (S)  OR 'BULK ATTACHMENT' (B)  : ").lower()    
+        
+        # If choice to add singular attachments is YES !!
+        if choice_2=='s':
+            no_of_attachments = int(input("[*] ENTER NO OF ATTACHMENTS YOU WISH TO ATTACH : "))
+            for x in range(no_of_attachments):
+                singular_file_Attacher(x)
+        
+        # If choice to add BULK attachments is Yes !!
+        elif choice_2=='b':
+            attachment_folder_name = input("[*] ENTER ATTACHMENT FOLDER / DRAG FILE HERE :")
+            if attachment_folder_name[-1]=="/":
+                attachment_folder_name = attachment_folder_name[:-1]
+
+            os.system("mkdir TEMP 1> /dev/null 2> /dev/null")
+            os.system("ls " + attachment_folder_name + "> TEMP/index.txt")
+            os.system("wc -l TEMP/index.txt | cut -d' ' -f1 > TEMP/attachment_count.txt")
+        
+
+            attachments = open("TEMP/index.txt","r")
+            attachments  = attachments.read().split("\n")
+            attachments.pop()
+
+            attachment_count = open("TEMP/attachment_count.txt","r")
+            attachment_count = attachment_count.read().split("\n")[0]
+
+            for x in range(int(len(attachments))):
+                print("\033[30;42m [OK] [{}] ATTACHING ==> {} \033[m".format(x,attachments[x]))
+                bulk_file_Attacher(str(attachment_folder_name) + "/" + str(attachments[x]))
+     
+    # If choice to add attachments is NO !!         
     else:
         pass
 
@@ -163,7 +244,7 @@ def MULTI_mail(email,password):
 
     # FUNCTION CALL
     send_mail(email,password,text,recipients)
-    input("[OK] MAIL SENT !.......... <PRESS ENTER>")
+    input("\n\033[30;42;5m [OK] MAIL SENT !.......... <PRESS ENTER> \033[m")
     main()
 # =============================================================================================
 
@@ -181,17 +262,15 @@ def BULK_mail(email,password):
 
     subjects = open(subject_name,"r")
     subjects = subjects.read().split("\n")
-    subjects.pop()
+    #subjects.pop()
     #print(subjects)
 
     body = open(body_name,"r")
     body = body.read().split("\n")
-    body.pop()
-    #print(body)
+    #body.pop()
 
     recipients = open(recipients_name,"r")
     recipients = recipients.read().split()
-    #print(recipients)
 
     attachment_count = 0
     choice = input("[!] YOU WISH TO ADD ATTACHMENT ? <YES / NO> : " ).lower()
@@ -211,21 +290,34 @@ def BULK_mail(email,password):
         attachment_folder_name = input("[*] ENTER ATTACHMENT FOLDER / DRAG FILE HERE :")
         if attachment_folder_name[-1]=="/":
             attachment_folder_name = attachment_folder_name[:-1]
-        print(attachment_folder_name)
-        input("RUK JA")
 
         os.system("mkdir TEMP 1> /dev/null 2> /dev/null")
         os.system("ls " + attachment_folder_name + "> TEMP/index.txt")
         os.system("wc -l TEMP/index.txt | cut -d' ' -f1 > TEMP/attachment_count.txt")
     
 
+        def natural_string_sort(l):
+            convert = lambda text: int(text) if text.isdigit() else text
+            alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+            return sorted(l, key = alphanum_key)
+
         attachments = open("TEMP/index.txt","r")
         attachments  = attachments.read().split("\n")
+        attachments.pop()
+        
         #print(attachments)
+        
+        z = open("TEMP/index.txt","w")
+        for x in natural_string_sort(attachments):
+            z.write(x+"\n")
+        z.close()
+        
+        attachments = open("TEMP/index.txt","r")
+        attachments  = attachments.read().split("\n")
+        attachments.pop()
 
         attachment_count = open("TEMP/attachment_count.txt","r")
         attachment_count = attachment_count.read().split("\n")[0]
-        #print(attachment_count)
 
     else:
         pass
@@ -238,6 +330,8 @@ def BULK_mail(email,password):
     print("\033[30;42m [@] TOTAL RECIPIENTS   : <{}> \033[m".format(len(recipients)))
     print("\033[30;42m [@] TOTAL ATTACHMENTS  : <{}> \033[m".format(attachment_count))
     
+    input("KINDLY CHECK THE INFORMATION ABOVE ...... < PRESS ENTER > AFTER CHECKING !")
+
     print("|-------------------------------------------------------------------------|")
     for x in range(int(len(recipients))):
         print(" <> RECIPIENT   => " + recipients[x])  
@@ -266,6 +360,7 @@ def BULK_mail(email,password):
         # FUNCTION CALL
         send_mail(email,password,text,recipients[x])
         print("[OK] MAIL => {} <=  SENT SUCCESSFULLY !".format(x))
+        message = MIMEMultipart()
 
 # =============================================================================================
 
@@ -293,7 +388,7 @@ def helper():
 
 def main():
     show_banner()
-    
+
     if os.path.isfile("creds.txt"):
         f = open("creds.txt","r")
         f = f.read().split(":")
