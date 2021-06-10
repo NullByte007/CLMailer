@@ -11,6 +11,6 @@ A Command line tool for sending Email directly from Terminal.
 
 
 # Youtube Tutorial
-https://youtu.be/llnv2BfoGXo
-https://youtu.be/xfITnH9THYU
-https://youtu.be/qgSj0klX9q8
+    https://youtu.be/llnv2BfoGXo
+    https://youtu.be/xfITnH9THYU
+    https://youtu.be/qgSj0klX9q8
